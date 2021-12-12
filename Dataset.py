@@ -4,9 +4,9 @@ from ODESolver import ODESolver
 
 class Dataset:
     dt_splitter = 2 / 3
-    left_bound = -30
-    right_bound = 30
-    dt = 0.01
+    left_bound = -20
+    right_bound = 20
+    dt = 0.02
     initial = 0.1
 
     def __init__(self, dx, dy, dz):

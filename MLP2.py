@@ -12,6 +12,7 @@ class MLP:
         self.Emin = MLP_config['Emin']
         self.input_layer_size  = MLP_config['input_size']
         self.hidden_layer_size = MLP_config['hidden_size']
+        random.seed(MLP_config['seed'])
 
         self.y  = np.asarray([0.0 for _ in range(self.hidden_layer_size)])
         
@@ -102,9 +103,9 @@ def plotter(t, y, e, title):
     plt.legend()
     plt.show()
 
-MLP_config_x = {'alpha': 0.001, 'Emin': 0.9, 'input_size': 16, 'hidden_size': 10}
-MLP_config_y = {'alpha': 0.001, 'Emin': 0.9, 'input_size': 16, 'hidden_size': 10}
-MLP_config_z = {'alpha': 0.01, 'Emin': 0.009, 'input_size': 16, 'hidden_size': 10}
+MLP_config_x = {'alpha': 0.001, 'Emin': 0.1, 'input_size': 16, 'hidden_size': 50, 'seed': 67}
+MLP_config_y = {'alpha': 0.001, 'Emin': 0.1, 'input_size': 16, 'hidden_size': 50, 'seed': 67}
+MLP_config_z = {'alpha': 0.01, 'Emin': 0.001, 'input_size': 16, 'hidden_size': 50, 'seed': 67}
 
 mlp_x = MLP(MLP_config_x)
 mlp_y = MLP(MLP_config_y)
@@ -112,15 +113,15 @@ mlp_z = MLP(MLP_config_z)
 
 dataset = Dataset(dx, dy, dz)
 xt, yt, zt = dataset.training_sample()
-x_windowst, ext = dataset.sliding_window_samples(xt, 16)
-y_windowst, eyt = dataset.sliding_window_samples(yt, 16)
-z_windowst, ezt = dataset.sliding_window_samples(zt, 16)
+x_windowst, ext = dataset.sliding_window_samples(xt, MLP_config_x['input_size'])
+y_windowst, eyt = dataset.sliding_window_samples(yt, MLP_config_y['input_size'])
+z_windowst, ezt = dataset.sliding_window_samples(zt, MLP_config_z['input_size'])
 t_training = dataset.training_time_points()
 
 xf, yf, zf = dataset.forecasting_sample()
-x_windowsf, exf = dataset.sliding_window_samples(xf, 16)
-y_windowsf, eyf = dataset.sliding_window_samples(yf, 16)
-z_windowsf, ezf = dataset.sliding_window_samples(zf, 16)
+x_windowsf, exf = dataset.sliding_window_samples(xf, MLP_config_x['input_size'])
+y_windowsf, eyf = dataset.sliding_window_samples(yf, MLP_config_y['input_size'])
+z_windowsf, ezf = dataset.sliding_window_samples(zf, MLP_config_z['input_size'])
 t_forecasting = dataset.forecasting_time_points()
 
 pool1 = ThreadPool(processes=1)
