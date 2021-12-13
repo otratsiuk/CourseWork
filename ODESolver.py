@@ -38,10 +38,3 @@ class ODESolver:
             self.z.append(self.z[i] + (1 / 6) * (Kz1 + 2 * Kz2 + 2 * Kz3 + Kz4))
 
         return self.x, self.y, self.z
-
-
-
-
-
-
-

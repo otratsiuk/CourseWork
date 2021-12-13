@@ -31,11 +31,14 @@ class Dataset:
     def forecasting_sample(self):
         return self.x[self.training_dt_size :], self.y[self.training_dt_size :], self.z[self.training_dt_size :]
 
-    def forecasting_time_points(self):
-        return self.t[self.training_dt_size :]  
+    def full_sample(self):
+        return self.t, self.x, self.y, self.z    
 
-    def training_time_points(self):
-        return self.t[: self.training_dt_size]        
+    def forecasting_time_points(self, k):
+        return self.t[self.training_dt_size : self.dt_size - k]  
+
+    def training_time_points(self, k):
+        return self.t[k : self.training_dt_size]        
 
     def sliding_window_samples(self, set, k):
         samples = []
@@ -46,40 +49,3 @@ class Dataset:
             samples.append(temp)
 
         return samples, set[k :]  
-
-    def function_graph3D(self):
-        fig = plt.figure()
-        ax = plt.axes(projection='3d')
-        ax.plot(self.x, self.y, self.z)
-        plt.show()
-
-    def projection_XY(self):
-        plt.title('XY')
-        plt.plot(self.x, self.y)
-        plt.show()
-
-    def projection_XZ(self):
-        plt.title('XZ')
-        plt.plot(self.x, self.z)
-        plt.show()
-
-    def projection_YZ(self):    
-        plt.title('YZ')
-        plt.plot(self.y, self.z)
-        plt.show()
-
-    def dependance_Xt(self):
-        plt.title('x(t)')
-        plt.plot(self.t, self.x)
-        plt.show()
-
-    def dependance_Yt(self):
-        plt.title('y(t)')
-        plt.plot(self.t, self.y)
-        plt.show()
-
-    def dependance_Zt(self):
-        plt.title('z(t)')
-        plt.plot(self.t, self.z)
-        plt.show() 
-
