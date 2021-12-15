@@ -1,7 +1,7 @@
-from MLP2 import MLP
-from Dataset import Dataset
 from multiprocessing.pool import ThreadPool
 from datetime import datetime
+from MLP2 import MLP
+from Dataset import Dataset
 import Plotter
 
 def dx(x, y, z):

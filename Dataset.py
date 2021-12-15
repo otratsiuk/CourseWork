@@ -1,27 +1,26 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from ODESolver import ODESolver
 
 class Dataset:
     dt_splitter = 2 / 3
-    left_bound = -20
-    right_bound = 20
+    dt_size = 2000
+    time_start = 0
+    time_interval = 0.1
     dt = 0.02
-    initial = 0.1
+    initial_condition = 0.1
 
     def __init__(self, dx, dy, dz):
         self.dx = dx
         self.dy = dy
         self.dz = dz
 
-        self.t = np.arange(self.left_bound, self.right_bound, self.dt)
-        self.dt_size = len(self.t)
+        self.t = np.arange(self.time_start, self.dt_size * self.time_interval, self.time_interval)
 
         self.training_dt_size = round(self.dt_size * self.dt_splitter)
         self.validation_dt_size = self.dt_size - self.training_dt_size
 
         solver = ODESolver(self.dx, self.dy, self.dz)
-        solver.set_initial_conditions(self.initial, self.initial, self.initial)
+        solver.set_initial_conditions(self.initial_condition, self.initial_condition, self.initial_condition)
         self.x, self.y, self.z = solver.solve(self.dt_size, self.dt)
             
 

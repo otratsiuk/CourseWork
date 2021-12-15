@@ -1,4 +1,3 @@
-
 class ODESolver:
     def __init__(self, dx, dy, dz):
         self.dx = dx
