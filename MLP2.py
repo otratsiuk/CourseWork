@@ -65,7 +65,7 @@ class MLP:
                 self.backward(X, e[i])
 
                 E = self.cost_function(x_windows, e)
-                #print(text + str(E))  
+                print(text + str(E))  
                 if E < self.Emin:
                     break
 
